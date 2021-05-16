@@ -1,14 +1,10 @@
 package com.wap.reactiveproject.domain
 
-import com.fasterxml.jackson.annotation.JsonManagedReference
-import org.hibernate.annotations.GenericGenerator
-import java.math.BigDecimal
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
 
-@Entity
+import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.annotation.Id
+
+@Table("product")
 class Product (
     @Id
     var ID: Long? = null,

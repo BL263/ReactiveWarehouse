@@ -14,10 +14,9 @@ import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("/warehouse")
-class Warehouse {
+class WarehouseController {
     @Autowired
     lateinit var productService: ProductService
-
 
     @PostMapping(path = ["/products"])
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,22 +46,22 @@ class Warehouse {
         }
     }
 
-    @GetMapping("/products", produces = ["application/stream+json"])
+    @GetMapping("/products")
     @ResponseStatus(HttpStatus.OK)
-    suspend fun getAllProducts(@PathVariable productID: Long): Flow<Product> {
+    suspend fun getAllProducts(): Flow<Product>? {
         return productService.getAllProducts()
     }
 
     @GetMapping("/products/{productID}")
     @ResponseStatus(HttpStatus.OK)
-    suspend fun getProduct(@PathVariable productID: Long): Mono<Product> {
+    suspend fun getProduct(@PathVariable productID: Long): Mono<Product>? {
 
         return productService.getProduct(productID)
     }
 
     @GetMapping("/productsByCategory?category={category}")
     @ResponseStatus(HttpStatus.OK)
-    suspend fun getAllProductsByCategory(@PathVariable category: String): Flow<Product> {
+    suspend fun getAllProductsByCategory(@PathVariable category: String): Flow<Product>? {
         return productService.getAllProductsByCategory(category)
     }
 

@@ -13,31 +13,36 @@ import reactor.core.publisher.Mono
 @Service
 @Transactional
 class ProductServiceImpl:ProductService {
+
+    @Autowired
     lateinit var productRepository: ProductRepository
 
-    override suspend fun getAllProducts(): Flow<Product> {
-        return try {
-            productRepository.findAll()
+    override suspend fun getAllProducts(): Flow<Product>? {
+         try {
+           val products=   productRepository.findAll()
+            return products
         } catch(ex: Exception) {
             throw ex
         }
     }
-    override suspend fun getAllProductsByCategory(category: String): Flow<Product> {
+    override suspend fun getAllProductsByCategory(category: String): Flow<Product>? {
         return try {
-            productRepository.getProductsByCategory(category)
+null
+        // productRepository.getProductsByCategory(category)
         } catch(ex: Exception) {
             throw ex
         }
     }
-    override suspend fun getProduct(id:Long): Mono<Product> {
+    override suspend fun getProduct(id:Long): Mono<Product>? {
         return try {
-            productRepository.getProductsByID(id)
+            null
+           // productRepository.getProductsByID(id)
         } catch(ex: Exception) {
             throw ex
         }
     }
     override suspend fun patchProduct(id :Long,value:   Long)  {
-          productRepository.updateQuantityOfProduct(id, value)
+        //  productRepository.updateQuantityOfProduct(id, value)
     }
     override suspend fun addProduct(product: ProductDto){
          productRepository.save(Product(null, product.Name,product.Category,
