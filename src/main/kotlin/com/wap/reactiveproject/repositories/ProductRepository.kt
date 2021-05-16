@@ -11,7 +11,12 @@ import reactor.core.publisher.Mono
 
 
 @Repository
-interface ProductRepository : CoroutineCrudRepository <Product, Long> {
+interface ProductRepository : CoroutineCrudRepository<Product, Long> {
+    suspend fun getProductByID(id: Long): Mono<Product>
+    suspend fun getProductsByCategory(category: String): Flow<Product>
 
+    @Modifying
+    @Query("""update product set Quantity = Quantity + :value where id = :id""")
+    suspend fun updateQuantityOfProduct(@Param(value = "id") id: Long, @Param(value = "value") value: Long)
 
 }
